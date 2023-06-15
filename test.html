@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="icon" href="https://developer.mozilla.org/favicon-48x48.cbbd161b.png">
+  <style>
+    main{
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+  </style>
+</head>
+<body>
+  <div>
+    <p>Open dev tools to see test logs</p>
+    <button onclick="test()">Run tests</button>
+  </div>
+  <main>
+    <iframe title="mobile" src="./" width="320px" height="600px"></iframe>
+    <iframe title="main" src="./" width="90%" height="90%" ></iframe>
+  </main>
+  <script type="module">
+    // Please, do not copy to artifacts (build) the folder of tests
+    if(location.host.matchAll(/localhost|127\.0\.0./g)?.next()?.value)
+      window.test = ()=> Promise.all(['cipher', 'css']
+        .map( src =>  import(`/__test__/${src}.test.js`).catch(console.error)))
+
+  </script>
+</body>
+</html>
